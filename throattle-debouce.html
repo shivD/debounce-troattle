@@ -1,0 +1,44 @@
+<input type="text" onkeyup="debouceClick()" />
+<button onclick="trttleClick()">Click</button>
+
+<script>
+    let count = 0
+    let isActive = true
+    let timer;
+    const debounce = (fn, delay) => {
+        return function () {
+            clearTimeout(timer)
+            timer = setTimeout(() => {
+                fn()
+            }, delay);
+        }
+    }
+
+    const hanlekeyup = () => {
+        count++
+        console.log("api caled", count)
+    }
+
+
+    const throttle = (fn, delay = 1000) => {
+        return function () {
+            if (isActive) {
+                fn()
+                isActive = false
+                setTimeout(() => {
+                    isActive = true
+                }, delay);
+            }
+        }
+    }
+
+    const handleClick = () => {
+        count++
+        console.log("count", count)
+    }
+
+    const trttleClick = throttle(handleClick, 1000)
+    const debouceClick = debounce(hanlekeyup, 1000)
+
+
+</script>
